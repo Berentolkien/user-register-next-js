@@ -8,7 +8,6 @@ export async function POST(request: Request) {
         const { fullname, email, password, confirmPassword } = await request.json();
         console.log("Data received:", { fullname, email, password, confirmPassword });
 
-        // Verificar si el password es válido
         if (!password || password.length < 6) {
             console.log("Password must be at least 6 characters");
             return NextResponse.json({
@@ -18,7 +17,6 @@ export async function POST(request: Request) {
             });
         }
 
-        // Verificar si las contraseñas coinciden
         if (password !== confirmPassword) {
             console.log("Passwords do not match");
             return NextResponse.json({

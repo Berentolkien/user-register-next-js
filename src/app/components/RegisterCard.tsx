@@ -2,6 +2,7 @@
 import React, { FormEvent, useState } from "react";
 import axios, { AxiosError } from "axios";
 import { useRouter } from "next/navigation";
+import { motion } from 'framer-motion';
 
 interface RegisterCardProps {
     gradientStartColor: string;
@@ -26,7 +27,6 @@ const RegisterCard: React.FC<RegisterCardProps> = ({ gradientStartColor, gradien
                 confirmPassword: formData.get("confirmPassword")
             });
             
-            // Redirigir al usuario a la página de inicio de sesión después del registro exitoso
             router.push("/login");
         } catch (error) {
             console.error(error);
@@ -46,8 +46,14 @@ const RegisterCard: React.FC<RegisterCardProps> = ({ gradientStartColor, gradien
     };
 
     return (
-        <div className={`bg-gradient-to-r from-${gradientStartColor} to-${gradientEndColor} bg-opacity-50 p-6 rounded-lg shadow-${shadowColor} w-80`}>
-            <h2 className="text-2xl font-semibold mb-4 text-white">Register</h2>
+        <motion.div
+        className={`bg-gradient-to-r from-${gradientStartColor} to-${gradientEndColor} bg-opacity-50 p-6 rounded-lg shadow-card w-80`}
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        whileHover={{ scale: 1.1 }}
+        transition={{ duration: 0.2 }}
+        >
+            <h2 className="text-2xl text-center font-semibold mb-4 text-white">Register</h2>
             <form onSubmit={handleSubmit}>
                 {error && <div className="bg-red-500 text-white p-2 mb-2">{error}</div>}
                 <div className="mb-4">
@@ -73,10 +79,10 @@ const RegisterCard: React.FC<RegisterCardProps> = ({ gradientStartColor, gradien
                 </div>                    
                 </div>
                 <div className="flex justify-center space-x-4">
-                    <button type="submit" className="bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600">Register</button>
+                    <motion.button type="submit" className="bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600" whileHover={{ scale: 1.1 }}>Register</motion.button>
                 </div>
             </form>
-        </div>
+        </motion.div>
     );
 }
 
